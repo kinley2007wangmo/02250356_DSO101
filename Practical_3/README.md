@@ -1,135 +1,191 @@
-# Docker Practical Notes
+# Practical 3: Optimize Docker Images and Implement Security Best Practices
 
 ## Objective
-The objective of this practical was to learn basic Docker commands such as:
-- Viewing containers
-- Pulling images
-- Running containers
-- Running containers in background mode
-- Attaching to running containers
-- Stopping containers
 
-## Commands Performed
-1. View All Containers
-```
-docker ps -a
-```
-### Explanation
-- `docker ps` → shows running containers
-- `-a` → shows all containers including stopped containers
-2. Remove a Container
-```
-docker rm <CID>
-```
-### Explanation
-- `rm` means remove
-- `<CID>` means Container ID
+The objective of this practical is to optimize Docker images and implement basic Docker security best practices. The practical demonstrates the use of lightweight base images, exclusion of unnecessary files, and execution of containers using a non-root user.
 
-Example:
-```
-docker rm a12bc34d
-```
-3. Run a Docker Image
-```
-docker run <image>
-```
-Example
-```
-docker run ubuntu
-```
-### Explanation
-This command creates and starts a container using the Ubuntu image.
+---
 
-4. View Docker Images
-```
-docker images
-```
-### Explanation
-Displays all downloaded Docker images available in the local system.
+## Prerequisites
 
-5. Run Ubuntu Container with Sleep Command
-```
-docker run ubuntu sh -c "sleep 5; exit 120"
-```
-### Explanation
-- `sh -c` executes shell commands
-- `sleep 5` pauses for 5 seconds
-- `exit 120` exits the container with status code 120
+* Docker Desktop installed
+* Visual Studio Code
+* Basic knowledge of Docker
 
-6. Run Infinite Loop Container
-```
-docker run ubuntu sh -c "while true; do date; sleep 1; done"
-```
-### Explanation
-- `while true` creates an infinite loop
-- `date` prints current date and time
-- `sleep 1` pauses for 1 second
+---
 
-### Stop the Container
-Press:
-```
-Ctrl + C
-```
-to stop the running container.
+## Project Structure
 
-7. Pull Docker Images
+```text
+Practical_3
+│
+├── app.js
+├── package.json
+├── Dockerfile
+└── .dockerignore
+```
 
-Pull Latest Alpine Image
-```
-docker pull alpine
-```
-Pull Specific Version
-```
-docker pull alpine:3.22
-```
-or
-```
-docker pull alpine:3.23
-```
-### Explanation
-Downloads Docker images from Docker Hub.
+---
 
-8. Run Container in Detached Mode
-```
-docker run -d ubuntu sleep 1000
-```
-### Explanation
-- `-d` means detached mode (background mode)
-- Container runs without blocking the terminal
+## Application Code
 
-9. View Running Containers
+### app.js
+
+```javascript
+const express = require('express');
+
+const app = express();
+
+app.get('/', (req, res) => {
+    res.send('Practical 3: Optimized and Secure Docker Image');
+});
+
+app.listen(3000, () => {
+    console.log('Server running on port 3000');
+});
 ```
+
+---
+
+### package.json
+
+```json
+{
+  "name": "practical3",
+  "version": "1.0.0",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
+```
+
+---
+
+## Docker Ignore File
+
+### .dockerignore
+
+```text
+node_modules
+npm-debug.log
+.git
+.gitignore
+README.md
+```
+
+### Purpose
+
+The `.dockerignore` file prevents unnecessary files and folders from being copied into the Docker image, reducing image size and improving build performance.
+
+---
+
+## Dockerfile
+
+```dockerfile
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install --only=production
+
+COPY . .
+
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+
+USER appuser
+
+EXPOSE 3000
+
+CMD ["node", "app.js"]
+```
+
+---
+
+## Security Best Practices Implemented
+
+### 1. Lightweight Base Image
+
+```dockerfile
+FROM node:18-alpine
+```
+
+The Alpine image is significantly smaller than the standard Node.js image and reduces the attack surface.
+
+### 2. Excluding Unnecessary Files
+
+The `.dockerignore` file prevents unwanted files from being copied into the image.
+
+### 3. Non-Root User Execution
+
+```dockerfile
+USER appuser
+```
+
+Running containers as a non-root user improves security and minimizes potential damage if the container is compromised.
+
+---
+
+## Build Docker Image
+
+```bash
+docker build -t practical_3 .
+```
+![Docker Build image](assets/docker-build-image.png)
+---
+
+## Run Docker Container
+
+```bash
+docker run -d -p 8083:3000 practical_3
+```
+
+
+---
+
+## Verify Running Container
+
+```bash
 docker ps
 ```
-### Explanation
-Shows only currently running containers.
+![Container running](assets/container-running.png)
+---
 
-10. Attach to Running Container
-```
-docker attach <CID>
-```
-Example
-```
-docker attach a12bc34d
-```
-### Explanation
-Connects the terminal to a running container.
+## Access the Application
 
-11. Stop Running Container
+Open the browser and navigate to:
 
-Open another terminal and run:
-```
-docker stop <CID>
-```
-### Explanation
-Stops the running container using its Container ID.
+http://localhost:8083
 
-## Key Concepts Learned
-- Docker containers can be created from images.
-- Containers can run in foreground or background mode.
-- Docker images can be downloaded from Docker Hub.
-- Containers can execute shell commands.
-- Running containers can be attached and stopped.
+Expected Output:
+
+```text
+Practical 3: Optimized and Secure Docker Image
+```
+
+![Localhost](assets/docker-outcome.png)
+---
+
+## Commands Used
+
+```bash
+docker build -t practical3 .
+docker run -d -p 8083:3000 practical3
+docker ps
+docker images
+```
+
+![Docker image](assets/docker-image.png)
+---
+
+## Outcome
+
+A lightweight and secure Docker image was successfully created and deployed. Image optimization techniques and Docker security best practices were implemented to improve efficiency and security.
+
+---
 
 ## Conclusion
-In this practical, we learned the fundamental Docker commands used for container management. We practiced creating containers, pulling images, running processes inside containers, and managing running containers using Docker CLI commands.
+
+Docker image optimization reduces image size and improves deployment speed. Security best practices such as using Alpine images, excluding unnecessary files, and avoiding root users help create safer and more efficient containerized applications.
