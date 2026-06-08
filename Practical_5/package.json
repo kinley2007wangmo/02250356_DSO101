@@ -1,0 +1,8 @@
+{
+  "name": "practical5",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo Testing Application",
+    "start": "node app.js"
+  }
+}
