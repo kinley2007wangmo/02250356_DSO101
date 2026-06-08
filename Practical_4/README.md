@@ -65,6 +65,8 @@ The project was built successfully using Jenkins.
 
 Changes were pushed to GitHub and Jenkins automatically detected the changes and triggered a new build.
 
+![Jenkins Test](assets/test-CI-jenkins.png)
+
 ---
 
 ## Build Output
