@@ -1,120 +1,88 @@
-# Practical Work: Jenkins, Docker, and Python Pip Setup
+# Practical 4: Install and Configure Jenkins for Continuous Integration
 
-## Aim
-To learn the basics of:
-- Jenkins setup using Docker
-- Port mapping in Docker
-- Understanding IP and MAC addresses
-- Installing Python packages using Pip
-- Running Flask installation commands
+## Objective
 
-## Jenkins Introduction
+The objective of this practical is to install and configure Jenkins for Continuous Integration (CI). Jenkins is connected to a GitHub repository and configured to automatically build projects whenever code changes occur.
 
-### What is Jenkins?
-Jenkins is a tool that automatically builds, tests, and delivers applications whenever code changes are made.
+---
 
-It helps developers automate tasks instead of doing them manually every time.
+## Tools Used
 
-### Main Functions of Jenkins
-- Build applications
-- Run tests
-- Deliver applications
-- Automate CI/CD pipeline
+* Jenkins
+* Git
+* GitHub
+* Visual Studio Code
 
-## Important Networking Concepts
+---
 
-### IP Address
-An IP Address helps identify a device location through the internet.
+## Steps Performed
 
-Example:
-```
-192.168.1.1
-```
-### MAC Address
+### 1. Verify Jenkins Installation
 
-A MAC Address is the hardware address of a device.
+Jenkins was accessed through:
 
-It does not change like an IP address may change.
-
-## Installing Jenkins Using Docker
-Step 1: Pull Jenkins Image
-```
-docker run jenkins/jenkins:lts
-```
-Step 2: Check Running Containers
-```
-docker ps
-```
-Step 3: Inspect Container
-```
-docker inspect <container_id>
-```
-Step 4: Stop Container
-```
-docker stop <container_id>
-```
-
-## Port Mapping in Docker
-
-### What is Port Mapping?
-Port mapping connects a port inside the container to a port on the local machine.
-
-### Syntax
-```
-docker run -p host_port:container_port image_name
-```
-### Example
-```
-docker run -p 8080:8080 jenkins/jenkins:lts
-```
-This maps:
-- Local machine port → 8080
-- Jenkins container port → 8080
-
-## Accessing Jenkins
-After starting Jenkins, open the browser and visit:
-```
 http://localhost:8080
+
+The Jenkins dashboard confirmed successful installation.
+
+![Jenkins Dashboard](assets/jenkins-dashboard.png)
+
+### 2. Create a Freestyle Project
+
+A Jenkins Freestyle Project named `Practical_4_CI` was created.
+
+![Project](assets/created-project.png)
+### 3. Configure Git Repository
+
+The GitHub repository URL was added under Source Code Management.
+
+![Added Git repository](assets/added-github-repository.png)
+
+### 4. Configure Build Trigger
+
+GitHub hook trigger and SCM polling were configured to automatically detect repository changes.
+
+![Build Tiger](assets/build-tigger.png)
+
+### 5. Add Build Step
+
+A shell command was added:
+
+```bash
+echo "Building Practical 4"
+echo "CI Pipeline Running Successfully"
 ```
 
-## Pip in Python
+![Build Setup](assets/build-setup.png)
 
-### What is Pip?
-Pip is a package management tool for Python.
+### 6. Execute Build
 
-It is used to install and manage extra Python libraries and packages.
+The project was built successfully using Jenkins.
 
-### Features of Pip
-- Installs Python packages
-- Manages libraries
-- Similar to an app store for Python
+![Execute Build](assets/successful-build.png)
 
-## Installing Python Packages
+### 7. Test Continuous Integration
 
-### General Syntax
+Changes were pushed to GitHub and Jenkins automatically detected the changes and triggered a new build.
+
+---
+
+## Build Output
+
+```text
+Building Practical 4
+CI Pipeline Running Successfully
+Finished: SUCCESS
 ```
-pip install package_name
-```
-## Installing Flask
 
-### Command
-```
-python3 -m pip install flask
-```
-### Explanation
-- `python3` → Runs Python 3
-- `-m` → Runs a module
-- `pip` → Python package installer
-- `install flask` → Installs Flask library
+---
 
-## Task Performed
-- Learned Jenkins basics
-- Installed Jenkins using Docker
-- Understood Docker port mapping
-- Learned about IP and MAC addresses
-- Learned Pip package management
-- Installed Flask using Pip
+## Outcome
+
+Jenkins was successfully configured for Continuous Integration. The Jenkins job automatically built the project whenever changes were pushed to GitHub.
+
+---
 
 ## Conclusion
 
-In this practical, Jenkins was installed using Docker, networking concepts were studied, and Python package installation using Pip was performed successfully. Flask library installation was also completed using the command line.
+Continuous Integration improves software development by automating builds and reducing manual effort. Jenkins provides a reliable platform for automating the build process and integrating code changes efficiently.
