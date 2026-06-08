@@ -1,107 +1,112 @@
-# SDLC / DevOps Practical Notes
-### Software Development Life Cycle (SDLC)
-- SDLC stands for Software Development Life Cycle.
-- It is a process used to develop software step by step.
+# Practical 1: Set Up a Docker Environment and Containerize a Simple Web Application
 
-### Types of SDLC Models
-* Waterfall Model (olden days)
-* V-Shape Model
-* Agile Model
+## Objective
 
-## 6 Phases of SDLC
-1. Planning
-- Identify project goals
-- Decide project scope and resources
+To install Docker, create a simple web application, containerize it using Docker, and run it inside a Docker container.
 
-2. Requirement Analysis
-- Gather user requirements
-- Analyze system needs
+---
 
-3. Designing
-- Create system design
-- Database and architecture planning
+## Prerequisites
 
-4. Development / Implementation
-- Coding phase
-- Developers write source code
+* Docker Desktop Installed
+* VS Code Installed
+* Basic knowledge of terminal commands
 
-5. Testing
-- Perform Software Testing
-- Find and fix bugs/errors
+---
 
-6. Deployment & Maintenance
-- Deploy application to users
-- Maintain and update the system
-- Collect feedback from users
+## Project Structure
 
-## Issues in Traditional SDLC
-* Cannot easily move back to initial stages
-* Not flexible
-* Changes are difficult after development starts
+```text
+Practical1/
+│
+├── index.html
+└── Dockerfile
+```
 
-## Agile Methodology
-Agile methodology is:
-- Flexible
-- Faster
-- Allows continuous improvement
+---
 
-## DevOps
-DevOps is considered a subset of SDLC.
+## Step 1: Create HTML File
 
-### Features of DevOps
-- Continuous Integration (CI)
-- Continuous Delivery/Deployment (CD)
-- Faster deployment process
-- Better collaboration between Development and Operations teams
+Create an `index.html` file containing:
 
-## Ansible
-Ansible is a tool used to:
-- Automate tasks
-- Manage multiple computers at once
-- Simplify server management
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DSO101 Practical 1</title>
+</head>
+<body>
+    <h1>Hello Docker - Practical 1</h1>
+</body>
+</html>
+```
 
-## Hypervisor
-A Hypervisor is software that:
-- Supports multiple virtual machines
-- Manages virtualization
-- Uses lightweight Linux distributions
+---
 
-Examples:
-- VirtualBox
-- VMware
+## Step 2: Create Dockerfile
 
-## Linux
-Linux is commonly used in DevOps because:
-- It supports command-line operations
-- Efficient for servers and containers
-- Widely used by developers
+Create a file named `Dockerfile` containing:
 
-## Docker
-Docker is used for:
-- CI/CD processes
-- Creating containers
-- Packaging applications with dependencies
+```Dockerfile
+FROM nginx:latest
 
-### Docker Image
-A Docker Image is:
-- A blueprint/template
-- Used to create containers
+COPY index.html /usr/share/nginx/html/index.html
 
-### Docker Docs
-Official documentation website for Docker:
-- Docker Docs
+EXPOSE 80
+```
 
-## Nginx
-Nginx is:
-- A high-performance web server
-- A reverse proxy server
-- Designed to handle large volumes of concurrent connections efficiently
+---
 
-## Tools Mentioned
-* Docker
-* Linux
-* VirtualBox
-* Ubuntu
-* Nginx
-* Ansible
-* CI/CD Tools
+## Step 3: Build Docker Image
+
+```bash
+docker build -t practical_1 .
+```
+![Docker Build](assets/Successful%20Docker%20Build.png)
+
+---
+
+## Step 4: Run Docker Container
+
+```bash
+docker run -d -p 8081:80 practical_1
+```
+
+---
+
+## Step 5: Verify Application
+
+Open a browser and visit:
+
+http://localhost:8081
+
+Expected Output:
+
+```text
+Hello Docker - Practical 1
+```
+![Successful docker](assets/Successful%20docker%20.png)
+
+---
+
+## Commands Used
+
+```bash
+docker build -t practical1 .
+docker run -d -p 8081:80 practical_1
+docker ps
+docker images
+```
+
+## Screenshots
+
+Docker Dresktop running
+![Docker running](assets/Docker%20Desktop%20running.png)
+
+Docker Images
+![Docker images](assets/Docker%20images.png)
+---
+
+## Conclusion
+
+Docker was successfully installed and used to containerize a simple web application. The application was packaged into a Docker image and executed inside a container using Nginx.
