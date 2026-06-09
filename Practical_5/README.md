@@ -1,107 +1,124 @@
-# SDLC / DevOps Practical Notes
-### Software Development Life Cycle (SDLC)
-- SDLC stands for Software Development Life Cycle.
-- It is a process used to develop software step by step.
+# Practical 5: Build, Test, and Deploy Using Jenkins Declarative Pipeline
 
-### Types of SDLC Models
-* Waterfall Model (olden days)
-* V-Shape Model
-* Agile Model
+## Objective
 
-## 6 Phases of SDLC
-1. Planning
-- Identify project goals
-- Decide project scope and resources
+The objective of this practical is to implement a Jenkins Declarative Pipeline that automates the build, test, and deployment stages of an application.
 
-2. Requirement Analysis
-- Gather user requirements
-- Analyze system needs
+---
 
-3. Designing
-- Create system design
-- Database and architecture planning
+## Project Structure
 
-4. Development / Implementation
-- Coding phase
-- Developers write source code
+```text
+Practical_5
+│
+├── app.js
+├── package.json
+├── Jenkinsfile
+└── README.md
+```
 
-5. Testing
-- Perform Software Testing
-- Find and fix bugs/errors
+---
 
-6. Deployment & Maintenance
-- Deploy application to users
-- Maintain and update the system
-- Collect feedback from users
+## Application Code
 
-## Issues in Traditional SDLC
-* Cannot easily move back to initial stages
-* Not flexible
-* Changes are difficult after development starts
+### app.js
 
-## Agile Methodology
-Agile methodology is:
-- Flexible
-- Faster
-- Allows continuous improvement
+```javascript
+console.log("Application Running Successfully");
+```
 
-## DevOps
-DevOps is considered a subset of SDLC.
+### package.json
 
-### Features of DevOps
-- Continuous Integration (CI)
-- Continuous Delivery/Deployment (CD)
-- Faster deployment process
-- Better collaboration between Development and Operations teams
+```json
+{
+  "name": "practical5",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo Testing Application",
+    "start": "node app.js"
+  }
+}
+```
 
-## Ansible
-Ansible is a tool used to:
-- Automate tasks
-- Manage multiple computers at once
-- Simplify server management
+---
 
-## Hypervisor
-A Hypervisor is software that:
-- Supports multiple virtual machines
-- Manages virtualization
-- Uses lightweight Linux distributions
+## Jenkinsfile
 
-Examples:
-- VirtualBox
-- VMware
+```groovy
+pipeline {
+    agent any
 
-## Linux
-Linux is commonly used in DevOps because:
-- It supports command-line operations
-- Efficient for servers and containers
-- Widely used by developers
+    stages {
 
-## Docker
-Docker is used for:
-- CI/CD processes
-- Creating containers
-- Packaging applications with dependencies
+        stage('Build') {
+            steps {
+                echo 'Building Application'
+            }
+        }
 
-### Docker Image
-A Docker Image is:
-- A blueprint/template
-- Used to create containers
+        stage('Test') {
+            steps {
+                sh 'echo Testing Application'
+            }
+        }
 
-### Docker Docs
-Official documentation website for Docker:
-- Docker Docs
+        stage('Deploy') {
+            steps {
+                echo 'Deploying Application'
+            }
+        }
+    }
+}
+```
 
-## Nginx
-Nginx is:
-- A high-performance web server
-- A reverse proxy server
-- Designed to handle large volumes of concurrent connections efficiently
+---
 
-## Tools Mentioned
-* Docker
-* Linux
-* VirtualBox
-* Ubuntu
-* Nginx
-* Ansible
-* CI/CD Tools
+## Steps Performed
+
+1. Created a simple Node.js application.
+2. Added a Jenkinsfile containing Build, Test, and Deploy stages.
+3. Pushed the project to GitHub.
+4. Created a Jenkins Pipeline job.
+5. Configured Jenkins to use Pipeline Script from SCM.
+6. Executed the pipeline successfully.
+
+---
+
+## Pipeline Stages
+
+### Build Stage
+
+Builds the application.
+
+### Test Stage
+
+Runs application tests.
+
+### Deploy Stage
+
+Simulates application deployment.
+
+---
+
+## Expected Output
+
+```text
+Building Application
+Testing Application
+Deploying Application
+Finished: SUCCESS
+```
+
+![Build now](assets/pipeline-output.png)
+
+---
+
+## Outcome
+
+The Jenkins Declarative Pipeline successfully automated the build, test, and deployment process.
+
+---
+
+## Conclusion
+
+Jenkins Pipelines provide a powerful way to automate software delivery workflows using Pipeline as Code principles.
