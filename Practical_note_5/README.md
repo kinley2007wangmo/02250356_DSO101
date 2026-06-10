@@ -32,7 +32,7 @@ This practical covers:
 
 ## Steps Performed
 
-1. Create Project Folder
+### 1. Create Project Folder
 
 Open terminal and create a new folder.
 
@@ -47,7 +47,7 @@ Explanation:
 
 ---
 
-2. Create Python Web Application
+### 2. Create Python Web Application
 
 Create a Python file named `app.py.`
 ```python
